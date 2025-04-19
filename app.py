@@ -7,11 +7,11 @@ from src.pipeline.predict_pipeline import CustomeData,PredictPipeline
 application = Flask(__name__)
 app = application
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
 
-@app.route('/predictions',methods =['GET','POST'])
+@app.route('/',methods =['GET','POST'])
 def predict_datapoint():
     if request.method=='GET':
         return render_template('home.html')
@@ -28,7 +28,7 @@ def predict_datapoint():
         pred_df = data.get_data_as_dataFrame()
         predict_pipepline = PredictPipeline()
         results = predict_pipepline.predict(pred_df)
-        return render_template('home.html',results = results[0])
+        return render_template('home.html',results = round(results[0],1))
 
 if __name__=='__main__':
     app.run(host='0.0.0.0',debug=True)
